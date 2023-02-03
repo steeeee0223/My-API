@@ -8,7 +8,7 @@ import express, {
     Router,
 } from 'express'
 import swaggerUi from 'swagger-ui-express'
-import cors from "cors";
+import cors from 'cors'
 
 import { RegisterRoutes } from '../build/routes'
 import { errorHandler, notFoundHandler } from './middlewares'

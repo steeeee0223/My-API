@@ -10,17 +10,17 @@
  * }
  */
 export interface Auth {
-    user: { name: string },
+    user: { name: string }
     token: string
 }
 
 export type RegisterParams = {
-    name: string,
-    email: string,
-    password: string,
+    name: string
+    email: string
+    password: string
 }
 
 export type LoginParams = {
-    userId: string, // UUID
+    userId: string // UUID
     name: string
 }

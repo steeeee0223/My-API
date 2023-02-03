@@ -9,13 +9,12 @@ import {
     SuccessResponse,
     Response,
     Example,
-    Tags
+    Tags,
 } from 'tsoa'
 
 import { ValidateErrorJSON, UUID } from '../../schemas'
 import { User, UserCreationParams } from './user.schema'
 import { UsersService } from './user.service'
-
 
 @Tags('Users')
 @Route('users')
@@ -42,7 +41,6 @@ export class UsersController extends Controller {
     ): Promise<User> {
         return new UsersService().get(userId, name)
     }
-
 
     @SuccessResponse('201', 'Created') // Custom success response
     @Response<ValidateErrorJSON>(422, 'Validation Failed', {
