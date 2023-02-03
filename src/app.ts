@@ -5,8 +5,10 @@ import express, {
     Response,
     Request,
     Application,
+    Router,
 } from 'express'
 import swaggerUi from 'swagger-ui-express'
+import cors from "cors";
 
 import { RegisterRoutes } from '../build/routes'
 import { errorHandler, notFoundHandler } from './middlewares'
@@ -29,6 +31,7 @@ class App {
             })
         )
         this.express.use(json())
+        this.express.use(cors())
     }
 
     private _swagger() {
@@ -46,7 +49,9 @@ class App {
     }
 
     private _routes() {
-        RegisterRoutes(this.express)
+        const route_v1 = Router()
+        RegisterRoutes(route_v1)
+        this.express.use('/api/v1', route_v1)
     }
 
     private _errors() {

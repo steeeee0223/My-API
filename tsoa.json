@@ -7,6 +7,12 @@
     "spec": {
         "outputDirectory": "build",
         "specVersion": 3,
+        "schemes": [
+            "http",
+            "https"
+        ],
+        "host": "localhost:8000",
+        "basePath": "api/v1",
         "securityDefinitions": {
             "api_key": {
                 "type": "apiKey",

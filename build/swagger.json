@@ -6,8 +6,90 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
+			"Auth": {
+				"description": "The Auth object contains information of current user's access token",
+				"properties": {
+					"user": {
+						"properties": {
+							"name": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"name"
+						],
+						"type": "object"
+					},
+					"token": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"user",
+					"token"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ValidateErrorJSON": {
+				"properties": {
+					"message": {
+						"type": "string",
+						"enum": [
+							"Validation failed"
+						],
+						"nullable": false
+					},
+					"details": {
+						"properties": {},
+						"additionalProperties": {},
+						"type": "object"
+					}
+				},
+				"required": [
+					"message",
+					"details"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RegisterParams": {
+				"properties": {
+					"password": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"password",
+					"email",
+					"name"
+				],
+				"type": "object"
+			},
+			"LoginParams": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"userId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"userId"
+				],
+				"type": "object"
+			},
 			"UUID": {
 				"type": "string",
+				"example": "52907745-7672-470e-a803-a2f8feb52944",
 				"format": "uuid",
 				"description": "Stringified UUIDv4.\nSee [RFC 4112](https://tools.ietf.org/html/rfc4122)",
 				"pattern": "[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}"
@@ -51,28 +133,6 @@
 					"name": "John Doe",
 					"phoneNumbers": []
 				}
-			},
-			"ValidateErrorJSON": {
-				"properties": {
-					"message": {
-						"type": "string",
-						"enum": [
-							"Validation failed"
-						],
-						"nullable": false
-					},
-					"details": {
-						"properties": {},
-						"additionalProperties": {},
-						"type": "object"
-					}
-				},
-				"required": [
-					"message",
-					"details"
-				],
-				"type": "object",
-				"additionalProperties": false
 			},
 			"Pick_User.email-or-name-or-phoneNumbers_": {
 				"properties": {
@@ -133,6 +193,92 @@
 	},
 	"openapi": "3.0.0",
 	"paths": {
+		"/auth/register": {
+			"post": {
+				"operationId": "Register",
+				"responses": {
+					"201": {
+						"description": "Registered",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Auth"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ValidateErrorJSON"
+								}
+							}
+						}
+					}
+				},
+				"description": "Registers a new user.",
+				"tags": [
+					"Authentication"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RegisterParams"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/auth/login": {
+			"post": {
+				"operationId": "Login",
+				"responses": {
+					"201": {
+						"description": "Registered",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Auth"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ValidateErrorJSON"
+								}
+							}
+						}
+					}
+				},
+				"description": "Logs in a user.",
+				"tags": [
+					"Authentication"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LoginParams"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/users/{userId}": {
 			"get": {
 				"operationId": "GetUser",
@@ -161,6 +307,9 @@
 				},
 				"description": "Retrieves the details of an existing user.\nSupply the unique user ID from either and receive corresponding user details.",
 				"summary": "A concise summary.",
+				"tags": [
+					"Users"
+				],
 				"security": [],
 				"parameters": [
 					{
@@ -222,6 +371,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Users"
+				],
 				"security": [],
 				"parameters": [],
 				"requestBody": {
@@ -239,7 +391,7 @@
 	},
 	"servers": [
 		{
-			"url": "/"
+			"url": "http://localhost:8000/api/v1"
 		}
 	]
 }

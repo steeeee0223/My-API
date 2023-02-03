@@ -9,24 +9,21 @@ import {
     SuccessResponse,
     Response,
     Example,
+    Tags
 } from 'tsoa'
 
-import { UUID } from '../common/schemas'
-import { User } from './user.schema'
-import { UsersService, UserCreationParams } from './user.service'
+import { ValidateErrorJSON, UUID } from '../../schemas'
+import { User, UserCreationParams } from './user.schema'
+import { UsersService } from './user.service'
 
-interface ValidateErrorJSON {
-    message: 'Validation failed'
-    details: { [name: string]: unknown }
-}
 
+@Tags('Users')
 @Route('users')
 export class UsersController extends Controller {
     /**
      * Retrieves the details of an existing user.
      * Supply the unique user ID from either and receive corresponding user details.
      * @param userId The user's identifier
-     * @example userId "52907745-7672-470e-a803-a2f8feb52944"
      * @example userId "e77ef155-bd12-46f0-8559-bf55f6dd4c63"
      * @param name Provide a username to display
      * @summary A concise summary.
@@ -46,7 +43,7 @@ export class UsersController extends Controller {
         return new UsersService().get(userId, name)
     }
 
-    @Response<ValidateErrorJSON>(422, 'Validation Failed')
+
     @SuccessResponse('201', 'Created') // Custom success response
     @Response<ValidateErrorJSON>(422, 'Validation Failed', {
         message: 'Validation failed',

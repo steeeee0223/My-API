@@ -1,4 +1,4 @@
-import { UUID } from '../common/schemas'
+import { UUID } from '../../schemas'
 
 /**
  * User objects allow you to associate actions performed in the system with the user that performed them.
@@ -18,3 +18,6 @@ export interface User {
     status?: 'Happy' | 'Sad'
     phoneNumbers: string[]
 }
+
+// A post request should not contain an id.
+export type UserCreationParams = Pick<User, 'email' | 'name' | 'phoneNumbers'>
