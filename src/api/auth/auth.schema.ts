@@ -12,13 +12,25 @@ export interface Auth {
     token: string
 }
 
-export type RegisterParams = {
-    name: string
+export type LoginParams = {
+    /**
+     * @example "janedoe@example.com"
+     */
     email: string
+    /**
+     * @example "secret"
+     */
     password: string
 }
 
-export type LoginParams = {
+export type RegisterParams = LoginParams & {
+    /**
+     * @example "Jane Doe"
+     */
+    name: string
+}
+
+export type UserInfo = {
     userId: string // UUID
     name: string
 }

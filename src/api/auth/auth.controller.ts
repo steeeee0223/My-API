@@ -7,8 +7,9 @@ import {
     Response,
     Tags,
 } from 'tsoa'
+import { StatusCodes } from 'http-status-codes'
 
-import { ValidateErrorJSON } from '../../schemas'
+import { ResponseJSON } from '../../schemas'
 import { Auth, LoginParams, RegisterParams } from './auth.schema'
 import { AuthService } from './auth.service'
 
@@ -19,20 +20,29 @@ export class AuthController extends Controller {
      * Registers a new user.
      */
     @SuccessResponse('201', 'Registered')
-    @Response<ValidateErrorJSON>(422, 'Validation Failed')
+    @Response<ResponseJSON>(
+        StatusCodes.UNPROCESSABLE_ENTITY,
+        'Validation Failed'
+    )
+    @Response<ResponseJSON>(StatusCodes.BAD_REQUEST, 'Bad Request')
     @Post('register')
     public async register(@Body() body: RegisterParams): Promise<Auth> {
-        this.setStatus(201)
+        this.setStatus(StatusCodes.CREATED)
         return new AuthService().register(body)
     }
     /**
      * Logs in a user.
      */
-    @SuccessResponse('201', 'Registered')
-    @Response<ValidateErrorJSON>(422, 'Validation Failed')
+    @SuccessResponse('200', 'Logged In')
+    @Response<ResponseJSON>(
+        StatusCodes.UNPROCESSABLE_ENTITY,
+        'Validation Failed'
+    )
+    @Response<ResponseJSON>(StatusCodes.BAD_REQUEST, 'Bad Request')
+    @Response<ResponseJSON>(StatusCodes.UNAUTHORIZED, 'Invalid Credentials')
     @Post('login')
     public async login(@Body() body: LoginParams): Promise<Auth> {
-        this.setStatus(201)
+        this.setStatus(StatusCodes.OK)
         return new AuthService().login(body)
     }
 }

@@ -31,61 +31,53 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"ValidateErrorJSON": {
+			"ResponseJSON": {
 				"properties": {
 					"message": {
-						"type": "string",
-						"enum": [
-							"Validation failed"
-						],
-						"nullable": false
-					},
-					"details": {
-						"properties": {},
-						"additionalProperties": {},
-						"type": "object"
+						"type": "string"
 					}
 				},
 				"required": [
-					"message",
-					"details"
+					"message"
 				],
 				"type": "object",
 				"additionalProperties": false
 			},
-			"RegisterParams": {
+			"LoginParams": {
 				"properties": {
 					"password": {
-						"type": "string"
+						"type": "string",
+						"example": "secret"
 					},
 					"email": {
-						"type": "string"
-					},
-					"name": {
-						"type": "string"
+						"type": "string",
+						"example": "janedoe@example.com"
 					}
 				},
 				"required": [
 					"password",
-					"email",
-					"name"
+					"email"
 				],
 				"type": "object"
 			},
-			"LoginParams": {
-				"properties": {
-					"name": {
-						"type": "string"
+			"RegisterParams": {
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/LoginParams"
 					},
-					"userId": {
-						"type": "string"
+					{
+						"properties": {
+							"name": {
+								"type": "string",
+								"example": "Jane Doe"
+							}
+						},
+						"required": [
+							"name"
+						],
+						"type": "object"
 					}
-				},
-				"required": [
-					"name",
-					"userId"
-				],
-				"type": "object"
+				]
 			},
 			"Types.ObjectId": {
 				"type": "string"
@@ -138,6 +130,28 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"ValidateErrorJSON": {
+				"properties": {
+					"message": {
+						"type": "string",
+						"enum": [
+							"Validation failed"
+						],
+						"nullable": false
+					},
+					"details": {
+						"properties": {},
+						"additionalProperties": {},
+						"type": "object"
+					}
+				},
+				"required": [
+					"message",
+					"details"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"JobCreateParams": {
 				"properties": {
 					"company": {
@@ -157,18 +171,6 @@
 					"company",
 					"position",
 					"status"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"ResponseJSON": {
-				"properties": {
-					"message": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"message"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -293,12 +295,22 @@
 							}
 						}
 					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseJSON"
+								}
+							}
+						}
+					},
 					"422": {
 						"description": "Validation Failed",
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ValidateErrorJSON"
+									"$ref": "#/components/schemas/ResponseJSON"
 								}
 							}
 						}
@@ -326,12 +338,32 @@
 			"post": {
 				"operationId": "Login",
 				"responses": {
-					"201": {
-						"description": "Registered",
+					"200": {
+						"description": "Logged In",
 						"content": {
 							"application/json": {
 								"schema": {
 									"$ref": "#/components/schemas/Auth"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseJSON"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Invalid Credentials",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseJSON"
 								}
 							}
 						}
@@ -341,7 +373,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ValidateErrorJSON"
+									"$ref": "#/components/schemas/ResponseJSON"
 								}
 							}
 						}

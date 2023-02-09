@@ -12,6 +12,8 @@ import cors from 'cors'
 
 import { RegisterRoutes } from '../build/routes'
 import { errorHandler, notFoundHandler } from './middlewares'
+import { connectDB } from './db'
+import DB_CONFIG from './config'
 
 class App {
     public express!: Application
@@ -22,6 +24,7 @@ class App {
         this._swagger()
         this._routes()
         this._errors()
+        this._get_db()
     }
 
     private _middlewares() {
@@ -57,6 +60,10 @@ class App {
     private _errors() {
         this.express.use(notFoundHandler)
         this.express.use(errorHandler)
+    }
+
+    private async _get_db() {
+        await connectDB(DB_CONFIG)
     }
 }
 
