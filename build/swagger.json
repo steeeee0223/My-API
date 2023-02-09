@@ -87,6 +87,92 @@
 				],
 				"type": "object"
 			},
+			"Types.ObjectId": {
+				"type": "string"
+			},
+			"Job": {
+				"description": "The Job object contains information of a job created by a user",
+				"properties": {
+					"company": {
+						"type": "string",
+						"example": "Apple"
+					},
+					"position": {
+						"type": "string",
+						"example": "Software Engineer"
+					},
+					"status": {
+						"type": "string",
+						"example": "pending"
+					},
+					"createdBy": {
+						"$ref": "#/components/schemas/Types.ObjectId"
+					}
+				},
+				"required": [
+					"company",
+					"position",
+					"status",
+					"createdBy"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Jobs": {
+				"properties": {
+					"jobs": {
+						"items": {
+							"$ref": "#/components/schemas/Job"
+						},
+						"type": "array"
+					},
+					"count": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"jobs",
+					"count"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"JobCreateParams": {
+				"properties": {
+					"company": {
+						"type": "string",
+						"example": "Apple"
+					},
+					"position": {
+						"type": "string",
+						"example": "Software Engineer"
+					},
+					"status": {
+						"type": "string",
+						"example": "pending"
+					}
+				},
+				"required": [
+					"company",
+					"position",
+					"status"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ResponseJSON": {
+				"properties": {
+					"message": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"UUID": {
 				"type": "string",
 				"example": "52907745-7672-470e-a803-a2f8feb52944",
@@ -182,7 +268,7 @@
 		}
 	},
 	"info": {
-		"title": "tsoa-project",
+		"title": "steeeee-api",
 		"version": "1.0.0",
 		"license": {
 			"name": "MIT"
@@ -277,6 +363,192 @@
 						}
 					}
 				}
+			}
+		},
+		"/jobs": {
+			"get": {
+				"operationId": "GetAllJobs",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Jobs"
+								}
+							}
+						}
+					}
+				},
+				"description": "Gets all jobs",
+				"tags": [
+					"Jobs"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateJob",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Job"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ValidateErrorJSON"
+								}
+							}
+						}
+					}
+				},
+				"description": "Creates a job",
+				"tags": [
+					"Jobs"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/JobCreateParams"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/jobs/{jobId}": {
+			"get": {
+				"operationId": "GetJob",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Job"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ValidateErrorJSON"
+								}
+							}
+						}
+					}
+				},
+				"description": "Gets a job by id",
+				"tags": [
+					"Jobs"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "jobId",
+						"required": true,
+						"schema": {
+							"$ref": "#/components/schemas/Types.ObjectId"
+						}
+					}
+				]
+			},
+			"patch": {
+				"operationId": "UpdateJob",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Job"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ValidateErrorJSON"
+								}
+							}
+						}
+					}
+				},
+				"description": "Updates a job by id",
+				"tags": [
+					"Jobs"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "jobId",
+						"required": true,
+						"schema": {
+							"$ref": "#/components/schemas/Types.ObjectId"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "DeleteJob",
+				"responses": {
+					"204": {
+						"description": "No content",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseJSON"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ValidateErrorJSON"
+								}
+							}
+						}
+					}
+				},
+				"description": "Deletes a job by id",
+				"tags": [
+					"Jobs"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "jobId",
+						"required": true,
+						"schema": {
+							"$ref": "#/components/schemas/Types.ObjectId"
+						}
+					}
+				]
 			}
 		},
 		"/users/{userId}": {

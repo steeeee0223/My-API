@@ -1,5 +1,3 @@
-// import { UUID } from "../../schemas"
-
 /**
  * The Auth object contains information of current user's access token
  * @example {

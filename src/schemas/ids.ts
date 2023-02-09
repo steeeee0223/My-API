@@ -7,3 +7,10 @@
  * @format uuid
  */
 export type UUID = string
+
+/**
+ * Stringified ObjectId
+ * @pattern [0-9a-fA-F]{24}
+ * @example 551137c2f9e1fac808a5f572
+ */
+export type OID = string
