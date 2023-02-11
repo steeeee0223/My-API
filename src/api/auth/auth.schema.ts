@@ -31,8 +31,3 @@ export type RegisterParams = LoginParams & {
      */
     name: string
 }
-
-export type UserInfo = {
-    userId: string // UUID
-    name: string
-}

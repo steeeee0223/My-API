@@ -6,6 +6,22 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
+			"UnauthenticatedErrorJSON": {
+				"properties": {
+					"message": {
+						"type": "string",
+						"enum": [
+							"Authentication invalid!"
+						],
+						"nullable": false
+					}
+				},
+				"required": [
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"Auth": {
 				"description": "The Auth object contains information of current user's access token",
 				"properties": {
@@ -430,6 +446,16 @@
 								}
 							}
 						}
+					},
+					"401": {
+						"description": "Unauthorized",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UnauthenticatedErrorJSON"
+								}
+							}
+						}
 					}
 				},
 				"summary": "Gets all jobs",
@@ -442,12 +468,22 @@
 			"post": {
 				"operationId": "CreateJob",
 				"responses": {
-					"200": {
-						"description": "OK",
+					"201": {
+						"description": "CREATED",
 						"content": {
 							"application/json": {
 								"schema": {
 									"$ref": "#/components/schemas/Job"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UnauthenticatedErrorJSON"
 								}
 							}
 						}
@@ -495,6 +531,16 @@
 							}
 						}
 					},
+					"401": {
+						"description": "Unauthorized",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UnauthenticatedErrorJSON"
+								}
+							}
+						}
+					},
 					"422": {
 						"description": "Validation Failed",
 						"content": {
@@ -525,12 +571,22 @@
 			"patch": {
 				"operationId": "UpdateJob",
 				"responses": {
-					"200": {
-						"description": "OK",
+					"202": {
+						"description": "ACCEPTED",
 						"content": {
 							"application/json": {
 								"schema": {
 									"$ref": "#/components/schemas/Job"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UnauthenticatedErrorJSON"
 								}
 							}
 						}
@@ -576,11 +632,21 @@
 				"operationId": "DeleteJob",
 				"responses": {
 					"204": {
-						"description": "No content",
+						"description": "NO CONTENT",
 						"content": {
 							"application/json": {
 								"schema": {
 									"$ref": "#/components/schemas/ResponseJSON"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UnauthenticatedErrorJSON"
 								}
 							}
 						}
@@ -640,7 +706,7 @@
 					}
 				},
 				"description": "Retrieves the details of an existing user.\nSupply the unique user ID from either and receive corresponding user details.",
-				"summary": "Gets a user.",
+				"summary": "Gets a user",
 				"tags": [
 					"Users"
 				],

@@ -9,3 +9,4 @@ export {
     CustomError,
 } from './errors'
 export { ResponseJSON, ValidateErrorJSON } from './responses'
+export { UserInfo } from './session'

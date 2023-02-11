@@ -2,7 +2,8 @@ import { Schema, model, Model } from 'mongoose'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 
-import { RegisterParams, UserInfo } from './auth.schema'
+import { RegisterParams } from './auth.schema'
+import { UserInfo } from '../../schemas'
 
 interface IUser extends RegisterParams {}
 

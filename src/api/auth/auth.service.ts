@@ -11,6 +11,7 @@ export class AuthService {
             token,
         }
     }
+
     public async login(params: LoginParams): Promise<Auth> {
         const { email, password } = params
         if (!email || !password) {

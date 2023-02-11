@@ -19,7 +19,7 @@ export class AuthController extends Controller {
     /**
      * @summary Registers a new user.
      */
-    @SuccessResponse('201', 'Registered')
+    @SuccessResponse(StatusCodes.CREATED, 'Registered')
     @Response<ResponseJSON>(
         StatusCodes.UNPROCESSABLE_ENTITY,
         'Validation Failed'
@@ -33,7 +33,7 @@ export class AuthController extends Controller {
     /**
      * @summary Logs in a user.
      */
-    @SuccessResponse('200', 'Logged In')
+    @SuccessResponse(StatusCodes.OK, 'Logged In')
     @Response<ResponseJSON>(
         StatusCodes.UNPROCESSABLE_ENTITY,
         'Validation Failed'
