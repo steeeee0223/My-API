@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon",
-    "build": "tsoa spec-and-routes",
+    "build": "npx tsoa spec-and-routes",
     "start": "ts-node src/server.ts",
     "lint": "eslint --ignore-path .gitignore",
     "format": "prettier --ignore-path .gitignore --write \"**/*.{ts,tsx,css,scss}\"",
