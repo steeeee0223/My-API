@@ -14,7 +14,7 @@ import {
 } from 'tsoa'
 
 import { ResponseJSON, ValidateErrorJSON } from '../../schemas'
-import { Job, JobCreateParams, Jobs } from './jobs.schema'
+import { Job, JobCreateParams, Jobs, JobUpdateParams } from './jobs.schema'
 import { JobsService } from './jobs.service'
 
 @Tags('Jobs')
@@ -58,9 +58,12 @@ export class JobsController extends Controller {
     @SuccessResponse('200', 'OK')
     @Response<ValidateErrorJSON>(422, 'Validation Failed')
     @Patch('{jobId}')
-    public async updateJob(@Path() jobId: Types.ObjectId): Promise<Job> {
+    public async updateJob(
+        @Path() jobId: Types.ObjectId,
+        @Body() body: JobUpdateParams
+    ): Promise<Job> {
         this.setStatus(200)
-        return new JobsService().updateJob(jobId)
+        return new JobsService().updateJob(jobId, body)
     }
 
     /**

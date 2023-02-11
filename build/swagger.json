@@ -177,6 +177,24 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"JobUpdateParams": {
+				"properties": {
+					"company": {
+						"type": "string",
+						"example": "Apple"
+					},
+					"position": {
+						"type": "string",
+						"example": "Software Engineer"
+					}
+				},
+				"required": [
+					"company",
+					"position"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"UUID": {
 				"type": "string",
 				"example": "52907745-7672-470e-a803-a2f8feb52944",
@@ -542,7 +560,17 @@
 							"$ref": "#/components/schemas/Types.ObjectId"
 						}
 					}
-				]
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/JobUpdateParams"
+							}
+						}
+					}
+				}
 			},
 			"delete": {
 				"operationId": "DeleteJob",

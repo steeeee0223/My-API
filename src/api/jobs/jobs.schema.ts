@@ -1,6 +1,6 @@
 import { Types } from 'mongoose'
 
-export interface JobCreateParams {
+export interface JobUpdateParams {
     /**
      * @example "Apple"
      */
@@ -9,6 +9,9 @@ export interface JobCreateParams {
      * @example "Software Engineer"
      */
     position: string
+}
+
+export interface JobCreateParams extends JobUpdateParams {
     /**
      * @example "pending"
      */
