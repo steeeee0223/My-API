@@ -14,7 +14,7 @@ export const connectDB = async ({
 }: ConnectOptions) => {
     try {
         const connection = await mongoose.connect(
-            `mongodb+srv://${user}:${pass}@cluster0.ibu1l1d.mongodb.net/?retryWrites=true&w=majority`
+            `mongodb+srv://${user}:${pass}@cluster0.ibu1l1d.mongodb.net/${db}?retryWrites=true&w=majority`
             // `mongodb://${host}:${port}/${db}`,
             // {
             //     authSource: 'admin',
