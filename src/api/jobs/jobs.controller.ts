@@ -21,7 +21,7 @@ import { JobsService } from './jobs.service'
 @Route('jobs')
 export class JobsController extends Controller {
     /**
-     * Gets all jobs
+     * @summary Gets all jobs
      */
     @SuccessResponse('200', 'OK')
     @Get()
@@ -29,8 +29,9 @@ export class JobsController extends Controller {
         this.setStatus(200)
         return new JobsService().getAllJobs()
     }
+
     /**
-     * Gets a job by id
+     * @summary Gets a job by id
      */
     @SuccessResponse('200', 'OK')
     @Response<ValidateErrorJSON>(422, 'Validation Failed')
@@ -41,7 +42,7 @@ export class JobsController extends Controller {
     }
 
     /**
-     * Creates a job
+     * @summary Creates a job
      */
     @SuccessResponse('200', 'OK')
     @Response<ValidateErrorJSON>(422, 'Validation Failed')
@@ -52,7 +53,7 @@ export class JobsController extends Controller {
     }
 
     /**
-     * Updates a job by id
+     * @summary Updates a job by id
      */
     @SuccessResponse('200', 'OK')
     @Response<ValidateErrorJSON>(422, 'Validation Failed')
@@ -61,8 +62,9 @@ export class JobsController extends Controller {
         this.setStatus(200)
         return new JobsService().updateJob(jobId)
     }
+
     /**
-     * Deletes a job by id
+     * @summary Deletes a job by id
      */
     @SuccessResponse('204', 'No content')
     @Response<ValidateErrorJSON>(422, 'Validation Failed')

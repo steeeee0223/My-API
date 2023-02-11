@@ -2,6 +2,7 @@ import { Types } from 'mongoose'
 
 import { ResponseJSON } from '../../schemas'
 import { Job, JobCreateParams, Jobs } from './jobs.schema'
+import { JobModel } from './jobs.model'
 
 const sampleJob = {
     company: 'string',
@@ -11,25 +12,26 @@ const sampleJob = {
 }
 
 export class JobsService {
-    public getAllJobs(): Jobs {
-        return {
-            jobs: [sampleJob],
-            count: 1,
-        }
+    public async getAllJobs(): Promise<Jobs> {
+        const jobs = await JobModel.find({
+            createdBy: new Types.ObjectId(),
+            // createdBy: req.user?.userId
+        }).sort('createdAt')
+        return { jobs, count: jobs.length }
     }
 
-    public getJob(jobId: Types.ObjectId): Job {
+    public async getJob(jobId: Types.ObjectId): Promise<Job> {
         return sampleJob
     }
 
-    public createJob(params: JobCreateParams): Job {
+    public async createJob(params: JobCreateParams): Promise<Job> {
         return sampleJob
     }
-    public updateJob(jobId: Types.ObjectId): Job {
+    public async updateJob(jobId: Types.ObjectId): Promise<Job> {
         return sampleJob
     }
 
-    public deleteJob(jobId: Types.ObjectId): ResponseJSON {
+    public async deleteJob(jobId: Types.ObjectId): Promise<ResponseJSON> {
         return { message: 'Deleted' }
     }
 }
