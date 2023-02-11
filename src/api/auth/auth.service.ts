@@ -1,5 +1,5 @@
 import { BadRequestError, UnauthenticatedError } from '../../schemas'
-import { User } from './auth.model'
+import { UserModel as User } from './auth.model'
 import { Auth, LoginParams, RegisterParams } from './auth.schema'
 
 export class AuthService {

@@ -25,7 +25,7 @@ export class UsersController extends Controller {
      * @param userId The user's identifier
      * @example userId "e77ef155-bd12-46f0-8559-bf55f6dd4c63"
      * @param name Provide a username to display
-     * @summary A concise summary.
+     * @summary Gets a user.
      */
     @Example<User>({
         id: '52907745-7672-470e-a803-a2f8feb52944',
@@ -42,6 +42,11 @@ export class UsersController extends Controller {
         return new UsersService().get(userId, name)
     }
 
+    /**
+     *
+     * @param requestBody The information to sign up a user
+     * @summary Creates a user
+     */
     @SuccessResponse('201', 'Created') // Custom success response
     @Response<ValidateErrorJSON>(422, 'Validation Failed', {
         message: 'Validation failed',

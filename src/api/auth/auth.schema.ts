@@ -1,14 +1,16 @@
 /**
  * The Auth object contains information of current user's access token
- * @example {
- *  "user": {
- *      "name": "Jane Doe",
- *  },
- * "token": "json-web-token"
- * }
  */
 export interface Auth {
-    user: { name: string }
+    user: {
+        /**
+         * @example "Jane Doe"
+         */
+        name: string
+    }
+    /**
+     * @example "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2U1MThiZmM3MTAwZDRmNjZkMjg0ZDAiLCJuYW1lIjoiSmFuZSBEb2UiLCJpYXQiOjE2NzYwODM2MDUsImV4cCI6MTY3ODY3NTYwNX0.jVEUTnXGUDgnPnJCTKgSO60jjE5q04UbgXFPZoEiJag"
+     */
     token: string
 }
 

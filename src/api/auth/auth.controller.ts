@@ -17,7 +17,7 @@ import { AuthService } from './auth.service'
 @Route('auth')
 export class AuthController extends Controller {
     /**
-     * Registers a new user.
+     * @summary Registers a new user.
      */
     @SuccessResponse('201', 'Registered')
     @Response<ResponseJSON>(
@@ -31,7 +31,7 @@ export class AuthController extends Controller {
         return new AuthService().register(body)
     }
     /**
-     * Logs in a user.
+     * @summary Logs in a user.
      */
     @SuccessResponse('200', 'Logged In')
     @Response<ResponseJSON>(

@@ -12,9 +12,9 @@ interface IUserMethods {
     verifyPassword(password: string): boolean
 }
 
-type UserModel = Model<IUser, {}, IUserMethods>
+type IUserModel = Model<IUser, {}, IUserMethods>
 
-const UserSchema = new Schema<IUser, UserModel, IUserMethods>({
+const UserSchema = new Schema<IUser, IUserModel, IUserMethods>({
     name: {
         type: String,
         required: [true, 'Please provide name'],
@@ -62,4 +62,4 @@ UserSchema.method('getName', function getName() {
     return this.name
 })
 
-export const User = model<IUser, UserModel>('User', UserSchema)
+export const UserModel = model<IUser, IUserModel>('User', UserSchema)

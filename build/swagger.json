@@ -12,7 +12,8 @@
 					"user": {
 						"properties": {
 							"name": {
-								"type": "string"
+								"type": "string",
+								"example": "Jane Doe"
 							}
 						},
 						"required": [
@@ -21,7 +22,8 @@
 						"type": "object"
 					},
 					"token": {
-						"type": "string"
+						"type": "string",
+						"example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2U1MThiZmM3MTAwZDRmNjZkMjg0ZDAiLCJuYW1lIjoiSmFuZSBEb2UiLCJpYXQiOjE2NzYwODM2MDUsImV4cCI6MTY3ODY3NTYwNX0.jVEUTnXGUDgnPnJCTKgSO60jjE5q04UbgXFPZoEiJag"
 					}
 				},
 				"required": [
@@ -316,7 +318,7 @@
 						}
 					}
 				},
-				"description": "Registers a new user.",
+				"summary": "Registers a new user.",
 				"tags": [
 					"Authentication"
 				],
@@ -379,7 +381,7 @@
 						}
 					}
 				},
-				"description": "Logs in a user.",
+				"summary": "Logs in a user.",
 				"tags": [
 					"Authentication"
 				],
@@ -412,7 +414,7 @@
 						}
 					}
 				},
-				"description": "Gets all jobs",
+				"summary": "Gets all jobs",
 				"tags": [
 					"Jobs"
 				],
@@ -443,7 +445,7 @@
 						}
 					}
 				},
-				"description": "Creates a job",
+				"summary": "Creates a job",
 				"tags": [
 					"Jobs"
 				],
@@ -486,7 +488,7 @@
 						}
 					}
 				},
-				"description": "Gets a job by id",
+				"summary": "Gets a job by id",
 				"tags": [
 					"Jobs"
 				],
@@ -526,7 +528,7 @@
 						}
 					}
 				},
-				"description": "Updates a job by id",
+				"summary": "Updates a job by id",
 				"tags": [
 					"Jobs"
 				],
@@ -566,7 +568,7 @@
 						}
 					}
 				},
-				"description": "Deletes a job by id",
+				"summary": "Deletes a job by id",
 				"tags": [
 					"Jobs"
 				],
@@ -610,7 +612,7 @@
 					}
 				},
 				"description": "Retrieves the details of an existing user.\nSupply the unique user ID from either and receive corresponding user details.",
-				"summary": "A concise summary.",
+				"summary": "Gets a user.",
 				"tags": [
 					"Users"
 				],
@@ -675,17 +677,20 @@
 						}
 					}
 				},
+				"summary": "Creates a user",
 				"tags": [
 					"Users"
 				],
 				"security": [],
 				"parameters": [],
 				"requestBody": {
+					"description": "The information to sign up a user",
 					"required": true,
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/UserCreationParams"
+								"$ref": "#/components/schemas/UserCreationParams",
+								"description": "The information to sign up a user"
 							}
 						}
 					}
