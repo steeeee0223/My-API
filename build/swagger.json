@@ -322,7 +322,7 @@
 				"operationId": "Register",
 				"responses": {
 					"201": {
-						"description": "Registered",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -375,7 +375,7 @@
 				"operationId": "Login",
 				"responses": {
 					"200": {
-						"description": "Logged In",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -431,6 +431,58 @@
 						}
 					}
 				}
+			}
+		},
+		"/auth/refresh": {
+			"get": {
+				"operationId": "Refresh",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Auth"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Refresh fails",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseJSON"
+								}
+							}
+						}
+					}
+				},
+				"summary": "Refresh access token for a user",
+				"tags": [
+					"Authentication"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/auth/logout": {
+			"get": {
+				"operationId": "Logout",
+				"responses": {
+					"200": {
+						"description": "Logged Out"
+					},
+					"204": {
+						"description": ""
+					}
+				},
+				"summary": "Logs out a user",
+				"tags": [
+					"Authentication"
+				],
+				"security": [],
+				"parameters": []
 			}
 		},
 		"/jobs": {

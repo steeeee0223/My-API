@@ -4,12 +4,16 @@ import jwt from 'jsonwebtoken'
 
 import { RegisterParams } from './auth.schema'
 import { UserInfo } from '../../schemas'
+import { JWT_LIFETIME, JWT_SECRET } from '../../config'
 
-interface IUser extends RegisterParams {}
+interface IUser extends RegisterParams {
+    accessToken: string
+}
 
 interface IUserMethods {
     getName(): string
     createJWT(): string
+    removeToken(): void
     verifyPassword(password: string): boolean
 }
 
@@ -34,6 +38,9 @@ const UserSchema = new Schema<IUser, IUserModel, IUserMethods>({
         type: String,
         required: [true, 'Please provide password'],
     },
+    accessToken: {
+        type: String,
+    },
 })
 
 UserSchema.pre('save', async function (next) {
@@ -42,13 +49,16 @@ UserSchema.pre('save', async function (next) {
     next()
 })
 
-UserSchema.method('createJWT', function createJWT() {
+UserSchema.method('createJWT', async function createJWT() {
     const payload: UserInfo = {
         userId: this._id.toString(),
         name: this.name,
     }
-    const secret: any = process.env.JWT_SECRET
-    return jwt.sign(payload, secret, { expiresIn: process.env.JWT_LIFETIME })
+    const secret: any = JWT_SECRET
+    const token = jwt.sign(payload, secret, { expiresIn: JWT_LIFETIME })
+    this.accessToken = token
+    this.save()
+    return token
 })
 
 UserSchema.method(
@@ -58,6 +68,11 @@ UserSchema.method(
         return isMatch
     }
 )
+
+UserSchema.method('removeToken', async function () {
+    this.accessToken = ''
+    this.save()
+})
 
 UserSchema.method('getName', function getName() {
     return this.name

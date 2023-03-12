@@ -9,6 +9,7 @@ import express, {
 } from 'express'
 import swaggerUi from 'swagger-ui-express'
 import cors from 'cors'
+import cookieParser from 'cookie-parser'
 
 import { RegisterRoutes } from '../build/routes'
 import { credentials, errorHandler, notFoundHandler } from './middlewares'
@@ -19,12 +20,12 @@ class App {
     public express!: Application
 
     constructor() {
+        this._get_db()
         this.express = express()
         this._middlewares()
-        this._swagger()
         this._routes()
+        this._swagger()
         this._errors()
-        this._get_db()
     }
 
     private _middlewares() {
@@ -36,11 +37,12 @@ class App {
             })
         )
         this.express.use(json())
+        this.express.use(cookieParser())
     }
 
     private _swagger() {
         this.express.use(
-            '/docs',
+            '/api/v1/docs',
             swaggerUi.serve,
             async (_req: Request, res: Response) => {
                 return res.send(
