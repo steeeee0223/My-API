@@ -11,9 +11,9 @@ import swaggerUi from 'swagger-ui-express'
 import cors from 'cors'
 
 import { RegisterRoutes } from '../build/routes'
-import { errorHandler, notFoundHandler } from './middlewares'
+import { credentials, errorHandler, notFoundHandler } from './middlewares'
 import { connectDB } from './db'
-import DB_CONFIG from './config'
+import { corsOptions, DB_CONFIG } from './config'
 
 class App {
     public express!: Application
@@ -28,13 +28,14 @@ class App {
     }
 
     private _middlewares() {
+        this.express.use(credentials)
+        this.express.use(cors(corsOptions))
         this.express.use(
             urlencoded({
                 extended: true,
             })
         )
         this.express.use(json())
-        this.express.use(cors())
     }
 
     private _swagger() {

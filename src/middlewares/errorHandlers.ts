@@ -4,10 +4,9 @@ import {
     BadRequestError,
     CustomAPIError,
     CustomError,
-    InternalServerError,
     NotFoundError,
     ValidationError,
-} from '../schemas/'
+} from '../schemas'
 import { logger } from '../utils'
 
 function generateCustomError(err: any): CustomAPIError {
@@ -37,6 +36,6 @@ function generateCustomError(err: any): CustomAPIError {
 
 export const errorHandler: ErrorRequestHandler = (err, _req, res, _next) => {
     const { statusCode, message } = generateCustomError(err)
-    logger.error(`** ${statusCode} ** ${message}`)
+    logger.error(`🚨 ${statusCode} | ${message}`)
     return res.status(statusCode).json({ message })
 }

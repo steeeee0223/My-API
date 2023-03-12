@@ -463,7 +463,16 @@
 					"Jobs"
 				],
 				"security": [],
-				"parameters": []
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			},
 			"post": {
 				"operationId": "CreateJob",

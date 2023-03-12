@@ -26,7 +26,6 @@ import { authMiddleware } from '../../middlewares'
 import { UnauthenticatedErrorJSON } from '../../schemas/responses'
 
 @Tags('Jobs')
-@Header('authorization')
 @Middlewares<RequestHandler>(authMiddleware)
 @Response<UnauthenticatedErrorJSON>(StatusCodes.UNAUTHORIZED, 'Unauthorized')
 @Route('jobs')
@@ -36,7 +35,11 @@ export class JobsController extends Controller {
      */
     @SuccessResponse(StatusCodes.OK, 'OK')
     @Get()
-    public async getAllJobs(@Request() req: ExRequest): Promise<Jobs> {
+    public async getAllJobs(
+        @Header('Authorization') bearerToken: string,
+        @Request() req: ExRequest
+    ): Promise<Jobs> {
+        console.log(bearerToken)
         const user = await req.user
         logger.info(user.name)
         this.setStatus(StatusCodes.OK)

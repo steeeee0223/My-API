@@ -1,3 +1,4 @@
-export { notFoundHandler } from './custom-errors'
-export { errorHandler } from './error-handlers'
+export { notFoundHandler } from './customErrors'
+export { errorHandler } from './errorHandlers'
 export { authMiddleware } from './authentication'
+export { credentials } from './credentials'
