@@ -16,11 +16,11 @@ import { Request as ExRequest } from 'express'
 
 import { ResponseJSON } from '../../schemas'
 import { Auth, LoginParams, RegisterParams } from './auth.schema'
-import { AuthService } from './auth.service'
+import { CAuthService } from './cauth.service'
 
-@Tags('Authentication')
-@Route('auth')
-export class AuthController extends Controller {
+@Tags('Authentication by Cookie')
+@Route('cookie-auth')
+export class CAuthController extends Controller {
     /**
      * @summary Registers a new user.
      */
@@ -35,7 +35,7 @@ export class AuthController extends Controller {
         @Body() body: RegisterParams,
         @Res() res: TsoaResponse<201, Auth>
     ): Promise<Auth> {
-        return new AuthService().register(body, res)
+        return new CAuthService().register(body, res)
     }
 
     /**
@@ -53,7 +53,7 @@ export class AuthController extends Controller {
         @Body() body: LoginParams,
         @Res() res: TsoaResponse<200, Auth>
     ): Promise<Auth> {
-        return await new AuthService().login(body, res)
+        return await new CAuthService().login(body, res)
     }
 
     /**
@@ -66,7 +66,7 @@ export class AuthController extends Controller {
         @Request() req: ExRequest,
         @Res() res: TsoaResponse<200, Auth>
     ): Promise<Auth> {
-        return await new AuthService().refresh(req, res)
+        return await new CAuthService().refresh(req, res)
     }
 
     /**
@@ -78,6 +78,6 @@ export class AuthController extends Controller {
         @Request() req: ExRequest,
         @Res() res: TsoaResponse<204, void>
     ): Promise<void> {
-        return await new AuthService().logout(req, res)
+        return await new CAuthService().logout(req, res)
     }
 }

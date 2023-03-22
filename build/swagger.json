@@ -317,7 +317,7 @@
 	},
 	"openapi": "3.0.0",
 	"paths": {
-		"/auth/register": {
+		"/cookie-auth/register": {
 			"post": {
 				"operationId": "Register",
 				"responses": {
@@ -354,7 +354,7 @@
 				},
 				"summary": "Registers a new user.",
 				"tags": [
-					"Authentication"
+					"Authentication by Cookie"
 				],
 				"security": [],
 				"parameters": [],
@@ -370,7 +370,7 @@
 				}
 			}
 		},
-		"/auth/login": {
+		"/cookie-auth/login": {
 			"post": {
 				"operationId": "Login",
 				"responses": {
@@ -417,7 +417,7 @@
 				},
 				"summary": "Logs in a user.",
 				"tags": [
-					"Authentication"
+					"Authentication by Cookie"
 				],
 				"security": [],
 				"parameters": [],
@@ -433,7 +433,7 @@
 				}
 			}
 		},
-		"/auth/refresh": {
+		"/cookie-auth/refresh": {
 			"get": {
 				"operationId": "Refresh",
 				"responses": {
@@ -460,13 +460,13 @@
 				},
 				"summary": "Refresh access token for a user",
 				"tags": [
-					"Authentication"
+					"Authentication by Cookie"
 				],
 				"security": [],
 				"parameters": []
 			}
 		},
-		"/auth/logout": {
+		"/cookie-auth/logout": {
 			"get": {
 				"operationId": "Logout",
 				"responses": {
@@ -479,7 +479,172 @@
 				},
 				"summary": "Logs out a user",
 				"tags": [
-					"Authentication"
+					"Authentication by Cookie"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/header-auth/register": {
+			"post": {
+				"operationId": "Register",
+				"responses": {
+					"201": {
+						"description": "Registered",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Auth"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseJSON"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseJSON"
+								}
+							}
+						}
+					}
+				},
+				"summary": "Registers a new user.",
+				"tags": [
+					"Authentication by Header"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RegisterParams"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/header-auth/login": {
+			"post": {
+				"operationId": "Login",
+				"responses": {
+					"200": {
+						"description": "Logged In",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Auth"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseJSON"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Invalid Credentials",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseJSON"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseJSON"
+								}
+							}
+						}
+					}
+				},
+				"summary": "Logs in a user.",
+				"tags": [
+					"Authentication by Header"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LoginParams"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/header-auth/refresh": {
+			"get": {
+				"operationId": "Refresh",
+				"responses": {
+					"200": {
+						"description": "Token Refreshed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Auth"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Refresh fails",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseJSON"
+								}
+							}
+						}
+					}
+				},
+				"summary": "Refresh access token for a user",
+				"tags": [
+					"Authentication by Header"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/header-auth/logout": {
+			"get": {
+				"operationId": "Logout",
+				"responses": {
+					"200": {
+						"description": "Logged Out"
+					}
+				},
+				"summary": "Logs out a user",
+				"tags": [
+					"Authentication by Header"
 				],
 				"security": [],
 				"parameters": []
