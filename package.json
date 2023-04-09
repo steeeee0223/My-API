@@ -8,6 +8,7 @@
     "dev": "nodemon",
     "build": "npx tsoa spec-and-routes",
     "start": "ts-node src/server.ts",
+    "test": "jest --runInBand --silent",
     "lint": "eslint --ignore-path .gitignore",
     "format": "prettier --ignore-path .gitignore --write \"**/*.{ts,tsx,css,scss}\"",
     "prepare": "husky install"
@@ -19,7 +20,8 @@
   },
   "_moduleAliases": {
     "@build": "./build",
-    "@config": "./config"
+    "@config": "./config",
+    "@src": "./src"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

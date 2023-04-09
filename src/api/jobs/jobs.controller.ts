@@ -43,7 +43,7 @@ export class JobsController extends Controller {
         const user = await req.user
         logger.info(user.name)
         this.setStatus(StatusCodes.OK)
-        return new JobsService().getAllJobs(user.userId)
+        return new JobsService().getAllJobs(new Types.ObjectId(user.userId))
     }
 
     /**
@@ -61,7 +61,7 @@ export class JobsController extends Controller {
     ): Promise<Job> {
         const user = await req.user
         this.setStatus(StatusCodes.OK)
-        return new JobsService().getJob(user.userId, jobId)
+        return new JobsService().getJob(new Types.ObjectId(user.userId), jobId)
     }
 
     /**
@@ -79,7 +79,10 @@ export class JobsController extends Controller {
     ): Promise<Job> {
         const user = await req.user
         this.setStatus(StatusCodes.CREATED)
-        return new JobsService().createJob(user.userId, body)
+        return new JobsService().createJob(
+            new Types.ObjectId(user.userId),
+            body
+        )
     }
 
     /**
@@ -98,7 +101,11 @@ export class JobsController extends Controller {
     ): Promise<Job> {
         const user = await req.user
         this.setStatus(StatusCodes.ACCEPTED)
-        return new JobsService().updateJob(user.userId, jobId, body)
+        return new JobsService().updateJob(
+            new Types.ObjectId(user.userId),
+            jobId,
+            body
+        )
     }
 
     /**
@@ -116,6 +123,9 @@ export class JobsController extends Controller {
     ): Promise<ResponseJSON> {
         const user = await req.user
         this.setStatus(StatusCodes.NO_CONTENT)
-        return new JobsService().deleteJob(user.userId, jobId)
+        return new JobsService().deleteJob(
+            new Types.ObjectId(user.userId),
+            jobId
+        )
     }
 }
