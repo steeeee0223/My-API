@@ -11,7 +11,7 @@ import swaggerUi from 'swagger-ui-express'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 
-import { RegisterRoutes } from '@/build/routes'
+import { RegisterRoutes } from '@build/routes'
 import { corsOptions, DB_CONFIG } from './config'
 import { credentials, errorHandler, notFoundHandler } from './middlewares'
 import { connectDB } from './db'
@@ -46,9 +46,7 @@ class App {
             swaggerUi.serve,
             async (_req: Request, res: Response) => {
                 return res.send(
-                    swaggerUi.generateHTML(
-                        await import('../build/swagger.json')
-                    )
+                    swaggerUi.generateHTML(await import('@build/swagger.json'))
                 )
             }
         )

@@ -17,6 +17,10 @@
       "eslint-config-prettier"
     ]
   },
+  "_moduleAliases": {
+    "@build": "./build",
+    "@config": "./config"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
@@ -51,6 +55,7 @@
     "eslint-plugin-jest-dom": "^4.0.3",
     "husky": "^8.0.0",
     "jest": "^29.5.0",
+    "module-alias": "^2.2.2",
     "nodemon": "^2.0.20",
     "prettier": "^2.8.3",
     "supertest": "^6.3.3",

@@ -1,4 +1,6 @@
 // src/server.ts
+import 'module-alias/register'
+
 import app from './app'
 import { BACKEND_PORT } from './config'
 import { logger } from './utils'
