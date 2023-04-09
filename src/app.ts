@@ -11,10 +11,10 @@ import swaggerUi from 'swagger-ui-express'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 
-import { RegisterRoutes } from '../build/routes'
+import { RegisterRoutes } from '@/build/routes'
+import { corsOptions, DB_CONFIG } from './config'
 import { credentials, errorHandler, notFoundHandler } from './middlewares'
 import { connectDB } from './db'
-import { corsOptions, DB_CONFIG } from './config'
 
 class App {
     public express!: Application
