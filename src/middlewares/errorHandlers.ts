@@ -14,7 +14,10 @@ function generateCustomError(err: any): CustomAPIError {
         err
     switch (true) {
         case name === 'ValidateError':
-            return new ValidationError(fields)
+            let msg = Object.values(fields)
+                .map((item: any) => item.message)
+                .join(',')
+            return new ValidationError(msg)
         case name === 'ValidationError':
             return new ValidationError(
                 Object.values(errors)
