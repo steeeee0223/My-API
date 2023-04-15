@@ -1,0 +1,1031 @@
+{
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"UnauthenticatedErrorJSON": {
+				"properties": {
+					"message": {
+						"type": "string",
+						"enum": [
+							"Authentication invalid!"
+						],
+						"nullable": false
+					}
+				},
+				"required": [
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Auth": {
+				"description": "The Auth object contains information of current user's access token",
+				"properties": {
+					"user": {
+						"properties": {
+							"name": {
+								"type": "string",
+								"example": "Jane Doe"
+							}
+						},
+						"required": [
+							"name"
+						],
+						"type": "object"
+					},
+					"token": {
+						"type": "string",
+						"example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2U1MThiZmM3MTAwZDRmNjZkMjg0ZDAiLCJuYW1lIjoiSmFuZSBEb2UiLCJpYXQiOjE2NzYwODM2MDUsImV4cCI6MTY3ODY3NTYwNX0.jVEUTnXGUDgnPnJCTKgSO60jjE5q04UbgXFPZoEiJag"
+					}
+				},
+				"required": [
+					"user",
+					"token"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ResponseJSON": {
+				"properties": {
+					"message": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"LoginParams": {
+				"properties": {
+					"password": {
+						"type": "string",
+						"example": "secret"
+					},
+					"email": {
+						"type": "string",
+						"example": "janedoe@example.com"
+					}
+				},
+				"required": [
+					"password",
+					"email"
+				],
+				"type": "object"
+			},
+			"RegisterParams": {
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/LoginParams"
+					},
+					{
+						"properties": {
+							"name": {
+								"type": "string",
+								"example": "Jane Doe"
+							}
+						},
+						"required": [
+							"name"
+						],
+						"type": "object"
+					}
+				]
+			},
+			"Types.ObjectId": {
+				"type": "string"
+			},
+			"Job": {
+				"description": "The Job object contains information of a job created by a user",
+				"properties": {
+					"company": {
+						"type": "string",
+						"example": "Apple"
+					},
+					"position": {
+						"type": "string",
+						"example": "Software Engineer"
+					},
+					"status": {
+						"type": "string",
+						"example": "pending"
+					},
+					"createdBy": {
+						"$ref": "#/components/schemas/Types.ObjectId"
+					}
+				},
+				"required": [
+					"company",
+					"position",
+					"status",
+					"createdBy"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Jobs": {
+				"properties": {
+					"jobs": {
+						"items": {
+							"$ref": "#/components/schemas/Job"
+						},
+						"type": "array"
+					},
+					"count": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"jobs",
+					"count"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ValidateErrorJSON": {
+				"properties": {
+					"message": {
+						"type": "string",
+						"enum": [
+							"Validation failed"
+						],
+						"nullable": false
+					},
+					"details": {
+						"properties": {},
+						"additionalProperties": {},
+						"type": "object"
+					}
+				},
+				"required": [
+					"message",
+					"details"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"JobCreateParams": {
+				"properties": {
+					"company": {
+						"type": "string",
+						"example": "Apple"
+					},
+					"position": {
+						"type": "string",
+						"example": "Software Engineer"
+					},
+					"status": {
+						"type": "string",
+						"example": "pending"
+					}
+				},
+				"required": [
+					"company",
+					"position",
+					"status"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"JobUpdateParams": {
+				"properties": {
+					"company": {
+						"type": "string",
+						"example": "Apple"
+					},
+					"position": {
+						"type": "string",
+						"example": "Software Engineer"
+					}
+				},
+				"required": [
+					"company",
+					"position"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UUID": {
+				"type": "string",
+				"example": "52907745-7672-470e-a803-a2f8feb52944",
+				"format": "uuid",
+				"description": "Stringified UUIDv4.\nSee [RFC 4112](https://tools.ietf.org/html/rfc4122)",
+				"pattern": "[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}"
+			},
+			"User": {
+				"description": "User objects allow you to associate actions performed in the system with the user that performed them.\nThe User object contains common information across every user in the system regardless of status and role.",
+				"properties": {
+					"id": {
+						"$ref": "#/components/schemas/UUID"
+					},
+					"email": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string",
+						"enum": [
+							"Happy",
+							"Sad"
+						]
+					},
+					"phoneNumbers": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"id",
+					"email",
+					"name",
+					"phoneNumbers"
+				],
+				"type": "object",
+				"additionalProperties": false,
+				"example": {
+					"id": "52907745-7672-470e-a803-a2f8feb52944",
+					"name": "John Doe",
+					"phoneNumbers": []
+				}
+			},
+			"Pick_User.email-or-name-or-phoneNumbers_": {
+				"properties": {
+					"email": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"phoneNumbers": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"email",
+					"name",
+					"phoneNumbers"
+				],
+				"type": "object",
+				"description": "From T, pick a set of properties whose keys are in the union K"
+			},
+			"UserCreationParams": {
+				"$ref": "#/components/schemas/Pick_User.email-or-name-or-phoneNumbers_"
+			}
+		},
+		"securitySchemes": {
+			"api_key": {
+				"type": "apiKey",
+				"name": "access_token",
+				"in": "query"
+			},
+			"tsoa_auth": {
+				"type": "oauth2",
+				"flows": {
+					"implicit": {
+						"authorizationUrl": "http://swagger.io/api/oauth/dialog",
+						"scopes": {
+							"write:pets": "modify things",
+							"read:pets": "read things"
+						}
+					}
+				}
+			}
+		}
+	},
+	"info": {
+		"title": "steeeee-api",
+		"version": "1.0.0",
+		"license": {
+			"name": "MIT"
+		},
+		"contact": {
+			"name": "steeeee0223"
+		}
+	},
+	"openapi": "3.0.0",
+	"paths": {
+		"/cookie-auth/register": {
+			"post": {
+				"operationId": "Register",
+				"responses": {
+					"201": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Auth"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseJSON"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseJSON"
+								}
+							}
+						}
+					}
+				},
+				"summary": "Registers a new user.",
+				"tags": [
+					"Authentication by Cookie"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RegisterParams"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/cookie-auth/login": {
+			"post": {
+				"operationId": "Login",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Auth"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseJSON"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Invalid Credentials",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseJSON"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseJSON"
+								}
+							}
+						}
+					}
+				},
+				"summary": "Logs in a user.",
+				"tags": [
+					"Authentication by Cookie"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LoginParams"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/cookie-auth/refresh": {
+			"get": {
+				"operationId": "Refresh",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Auth"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Refresh fails",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseJSON"
+								}
+							}
+						}
+					}
+				},
+				"summary": "Refresh access token for a user",
+				"tags": [
+					"Authentication by Cookie"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/cookie-auth/logout": {
+			"get": {
+				"operationId": "Logout",
+				"responses": {
+					"200": {
+						"description": "Logged Out"
+					},
+					"204": {
+						"description": ""
+					}
+				},
+				"summary": "Logs out a user",
+				"tags": [
+					"Authentication by Cookie"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/header-auth/register": {
+			"post": {
+				"operationId": "Register",
+				"responses": {
+					"201": {
+						"description": "Registered",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Auth"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseJSON"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseJSON"
+								}
+							}
+						}
+					}
+				},
+				"summary": "Registers a new user.",
+				"tags": [
+					"Authentication by Header"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RegisterParams"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/header-auth/login": {
+			"post": {
+				"operationId": "Login",
+				"responses": {
+					"200": {
+						"description": "Logged In",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Auth"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseJSON"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Invalid Credentials",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseJSON"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseJSON"
+								}
+							}
+						}
+					}
+				},
+				"summary": "Logs in a user.",
+				"tags": [
+					"Authentication by Header"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LoginParams"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/header-auth/refresh": {
+			"get": {
+				"operationId": "Refresh",
+				"responses": {
+					"200": {
+						"description": "Token Refreshed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Auth"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Refresh fails",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseJSON"
+								}
+							}
+						}
+					}
+				},
+				"summary": "Refresh access token for a user",
+				"tags": [
+					"Authentication by Header"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/header-auth/logout": {
+			"get": {
+				"operationId": "Logout",
+				"responses": {
+					"200": {
+						"description": "Logged Out"
+					}
+				},
+				"summary": "Logs out a user",
+				"tags": [
+					"Authentication by Header"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/jobs": {
+			"get": {
+				"operationId": "GetAllJobs",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Jobs"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UnauthenticatedErrorJSON"
+								}
+							}
+						}
+					}
+				},
+				"summary": "Gets all jobs",
+				"tags": [
+					"Jobs"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"post": {
+				"operationId": "CreateJob",
+				"responses": {
+					"201": {
+						"description": "CREATED",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Job"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UnauthenticatedErrorJSON"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ValidateErrorJSON"
+								}
+							}
+						}
+					}
+				},
+				"summary": "Creates a job",
+				"tags": [
+					"Jobs"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/JobCreateParams"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/jobs/{jobId}": {
+			"get": {
+				"operationId": "GetJob",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Job"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UnauthenticatedErrorJSON"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ValidateErrorJSON"
+								}
+							}
+						}
+					}
+				},
+				"summary": "Gets a job by id",
+				"tags": [
+					"Jobs"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "jobId",
+						"required": true,
+						"schema": {
+							"$ref": "#/components/schemas/Types.ObjectId"
+						}
+					}
+				]
+			},
+			"patch": {
+				"operationId": "UpdateJob",
+				"responses": {
+					"202": {
+						"description": "ACCEPTED",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Job"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UnauthenticatedErrorJSON"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ValidateErrorJSON"
+								}
+							}
+						}
+					}
+				},
+				"summary": "Updates a job by id",
+				"tags": [
+					"Jobs"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "jobId",
+						"required": true,
+						"schema": {
+							"$ref": "#/components/schemas/Types.ObjectId"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/JobUpdateParams"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "DeleteJob",
+				"responses": {
+					"204": {
+						"description": "NO CONTENT",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseJSON"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UnauthenticatedErrorJSON"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ValidateErrorJSON"
+								}
+							}
+						}
+					}
+				},
+				"summary": "Deletes a job by id",
+				"tags": [
+					"Jobs"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "jobId",
+						"required": true,
+						"schema": {
+							"$ref": "#/components/schemas/Types.ObjectId"
+						}
+					}
+				]
+			}
+		},
+		"/users/{userId}": {
+			"get": {
+				"operationId": "GetUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/User"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"id": "52907745-7672-470e-a803-a2f8feb52944",
+											"name": "tsoa user",
+											"email": "hello@tsoa.com",
+											"phoneNumbers": [],
+											"status": "Happy"
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"description": "Retrieves the details of an existing user.\nSupply the unique user ID from either and receive corresponding user details.",
+				"summary": "Gets a user",
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "The user's identifier",
+						"in": "path",
+						"name": "userId",
+						"required": true,
+						"schema": {
+							"$ref": "#/components/schemas/UUID"
+						}
+					},
+					{
+						"description": "Provide a username to display",
+						"in": "query",
+						"name": "name",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/users": {
+			"post": {
+				"operationId": "CreateUser",
+				"responses": {
+					"201": {
+						"description": "Created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/User"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ValidateErrorJSON"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"message": "Validation failed",
+											"details": {
+												"requestBody": {
+													"message": "id is an excess property and therefore not allowed",
+													"value": "52907745-7672-470e-a803-a2f8feb52944"
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"summary": "Creates a user",
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"description": "The information to sign up a user",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UserCreationParams",
+								"description": "The information to sign up a user"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "http://localhost:8080/api/v1",
+			"description": "Local development"
+		},
+		{
+			"url": "https://steeeee-api.onrender.com/api/v1",
+			"description": "Prod development"
+		}
+	]
+}
