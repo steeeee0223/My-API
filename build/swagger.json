@@ -319,7 +319,7 @@
 	"paths": {
 		"/cookie-auth/register": {
 			"post": {
-				"operationId": "Register",
+				"operationId": "c-register",
 				"responses": {
 					"201": {
 						"description": "",
@@ -372,7 +372,7 @@
 		},
 		"/cookie-auth/login": {
 			"post": {
-				"operationId": "Login",
+				"operationId": "c-login",
 				"responses": {
 					"200": {
 						"description": "",
@@ -435,7 +435,7 @@
 		},
 		"/cookie-auth/refresh": {
 			"get": {
-				"operationId": "Refresh",
+				"operationId": "c-refresh",
 				"responses": {
 					"200": {
 						"description": "",
@@ -468,7 +468,7 @@
 		},
 		"/cookie-auth/logout": {
 			"get": {
-				"operationId": "Logout",
+				"operationId": "c-logout",
 				"responses": {
 					"200": {
 						"description": "Logged Out"
@@ -487,7 +487,7 @@
 		},
 		"/header-auth/register": {
 			"post": {
-				"operationId": "Register",
+				"operationId": "h-register",
 				"responses": {
 					"201": {
 						"description": "Registered",
@@ -540,7 +540,7 @@
 		},
 		"/header-auth/login": {
 			"post": {
-				"operationId": "Login",
+				"operationId": "h-login",
 				"responses": {
 					"200": {
 						"description": "Logged In",
@@ -603,7 +603,7 @@
 		},
 		"/header-auth/refresh": {
 			"get": {
-				"operationId": "Refresh",
+				"operationId": "h-refresh",
 				"responses": {
 					"200": {
 						"description": "Token Refreshed",
@@ -636,7 +636,7 @@
 		},
 		"/header-auth/logout": {
 			"get": {
-				"operationId": "Logout",
+				"operationId": "h-logout",
 				"responses": {
 					"200": {
 						"description": "Logged Out"

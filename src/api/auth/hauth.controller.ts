@@ -8,6 +8,7 @@ import {
     Tags,
     Get,
     Request,
+    OperationId,
 } from 'tsoa'
 import { StatusCodes } from 'http-status-codes'
 import { Request as ExRequest } from 'express'
@@ -22,6 +23,7 @@ export class HAuthController extends Controller {
     /**
      * @summary Registers a new user.
      */
+    @OperationId('h-register')
     @SuccessResponse(StatusCodes.CREATED, 'Registered')
     @Response<ResponseJSON>(
         StatusCodes.UNPROCESSABLE_ENTITY,
@@ -39,6 +41,7 @@ export class HAuthController extends Controller {
     /**
      * @summary Logs in a user.
      */
+    @OperationId('h-login')
     @SuccessResponse(StatusCodes.OK, 'Logged In')
     @Response<ResponseJSON>(
         StatusCodes.UNPROCESSABLE_ENTITY,
@@ -57,6 +60,7 @@ export class HAuthController extends Controller {
     /**
      * @summary Refresh access token for a user
      */
+    @OperationId('h-refresh')
     @SuccessResponse(StatusCodes.OK, 'Token Refreshed')
     @Response<ResponseJSON>(StatusCodes.UNAUTHORIZED, 'Refresh fails')
     @Get('refresh')
@@ -70,6 +74,7 @@ export class HAuthController extends Controller {
     /**
      * @summary Logs out a user
      */
+    @OperationId('h-logout')
     @SuccessResponse(StatusCodes.OK, 'Logged Out')
     @Get('logout')
     public async logout(@Request() req: ExRequest): Promise<void> {

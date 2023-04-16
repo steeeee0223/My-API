@@ -10,6 +10,7 @@ import {
     Request,
     Res,
     TsoaResponse,
+    OperationId,
 } from 'tsoa'
 import { StatusCodes } from 'http-status-codes'
 import { Request as ExRequest } from 'express'
@@ -24,6 +25,7 @@ export class CAuthController extends Controller {
     /**
      * @summary Registers a new user.
      */
+    @OperationId('c-register')
     @SuccessResponse(StatusCodes.CREATED, 'Registered')
     @Response<ResponseJSON>(
         StatusCodes.UNPROCESSABLE_ENTITY,
@@ -41,6 +43,7 @@ export class CAuthController extends Controller {
     /**
      * @summary Logs in a user.
      */
+    @OperationId('c-login')
     @SuccessResponse(StatusCodes.OK, 'Logged In')
     @Response<ResponseJSON>(
         StatusCodes.UNPROCESSABLE_ENTITY,
@@ -59,6 +62,7 @@ export class CAuthController extends Controller {
     /**
      * @summary Refresh access token for a user
      */
+    @OperationId('c-refresh')
     @SuccessResponse(StatusCodes.OK, 'Token Refreshed')
     @Response<ResponseJSON>(StatusCodes.UNAUTHORIZED, 'Refresh fails')
     @Get('refresh')
@@ -72,6 +76,7 @@ export class CAuthController extends Controller {
     /**
      * @summary Logs out a user
      */
+    @OperationId('c-logout')
     @SuccessResponse(StatusCodes.OK, 'Logged Out')
     @Get('logout')
     public async logout(
